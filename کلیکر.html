@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>همستر کامبت</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --hamster-primary: #FF6B6B;
+            --hamster-secondary: #4ECDC4;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .hamster-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .click-btn {
+            background: var(--hamster-primary);
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .click-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 5px rgba(255, 107, 107, 0.3);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        
+        .stat-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 15px;
+        }
+        
+        .invite-section {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(78, 205, 196, 0.2);
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hamster-card">
+            <h1>همستر کامبت 🐹</h1>
+            <div class="stats">
+                <div class="stat-box">
+                    <div>امتیاز شما</div>
+                    <div id="points">0</div>
+                </div>
+                <div class="stat-box">
+                    <div>کلیک باقی‌مانده</div>
+                    <div id="remaining">10000</div>
+                </div>
+            </div>
+            
+            <button class="click-btn" onclick="handleClick()">کلیک کن!</button>
+            
+            <div class="invite-section">
+                <h3>دعوت از دوستان</h3>
+                <p>با هر دعوت 50 امتیاز رایگان بگیرید!</p>
+                <button onclick="copyInviteLink()">کپی لینک دعوت</button>
+                <p id="inviteLink" style="word-break: break-all; margin-top: 10px;"></p>
+            </div>
+            
+            <div class="channels-section">
+                <h3>عضویت در کانال‌ها</h3>
+                <div id="channelsList"></div>
+                <button onclick="checkChannels()">بررسی عضویت</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.MainButton.setText('بازگشت به ربات');
+        tg.MainButton.show();
+        
+        // شناسایی کاربر
+        const userId = tg.initDataUnsafe.user.id;
+        document.getElementById('inviteLink').textContent = 
+            `https://t.me/${tg.initDataUnsafe.user.username}?start=ref_${userId}`;
+
+        // بارگیری داده‌های کاربر
+        async function loadUserData() {
+            const response = await fetch(`/user-data?user_id=${userId}`);
+            const data = await response.json();
+            document.getElementById('points').textContent = data.points;
+            document.getElementById('remaining').textContent = 10000 - data.daily_clicks;
+        }
+        
+        // ثبت کلیک
+        async function handleClick() {
+            const response = await fetch('/click', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId })
+            });
+            
+            const result = await response.json();
+            if(result.success) {
+                document.getElementById('points').textContent = result.points;
+                document.getElementById('remaining').textContent = 10000 - result.daily_clicks;
+                
+                // افکت کلیک
+                const btn = document.querySelector('.click-btn');
+                btn.style.transform = 'scale(0.95)';
+                setTimeout(() => { btn.style.transform = 'scale(1)'; }, 100);
+            }
+        }
+        
+        // کپی لینک دعوت
+        function copyInviteLink() {
+            const link = document.getElementById('inviteLink').textContent;
+            navigator.clipboard.writeText(link);
+            alert('لینک دعوت کپی شد!');
+        }
+        
+        // بررسی عضویت در کانال‌ها
+        async function checkChannels() {
+            const response = await fetch('/check-channels', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId })
+            });
+            
+            const result = await response.json();
+            if(result.joined_all) {
+                alert(`تبریک! 100 امتیاز بابت عضویت دریافت کردید. مجموع: ${result.points}`);
+            } else {
+                alert(`لطفاً در ${result.missing_count} کانال عضو شوید!`);
+                result.missing_channels.forEach(channel => {
+                    window.open(`https://t.me/${channel}`, '_blank');
+                });
+            }
+        }
+        
+        // بارگیری اولیه داده‌ها
+        loadUserData();
+    </script>
+</body>
+</html>
