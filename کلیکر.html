@@ -1,537 +1,87 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-62 | سیستم کلیک حرفه‌ای</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #FF6B6B;
-            --secondary: #4ECDC4;
-            --dark: #1a2a6c;
-            --darker: #0d1b4c;
-            --light: #f8f9fa;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--dark), #b21f1f, var(--darker));
-            color: var(--light);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 500px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-            animation: fadeIn 1s ease;
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        header p {
-            opacity: 0.8;
-            font-size: 1.1rem;
-        }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            margin-bottom: 25px;
-            animation: slideUp 0.8s ease;
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .stat-box {
-            background: rgba(0, 0, 0, 0.25);
-            padding: 15px;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .stat-box:hover {
-            transform: translateY(-5px);
-            background: rgba(0, 0, 0, 0.4);
-        }
-        
-        .stat-box .value {
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 10px 0;
-            color: var(--secondary);
-        }
-        
-        .stat-box .label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        .click-btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 18px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .click-btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.7);
-        }
-        
-        .click-btn:active {
-            transform: scale(0.98);
-        }
-        
-        .section {
-            margin-top: 30px;
-        }
-        
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            color: var(--secondary);
-        }
-        
-        .section-title i {
-            font-size: 1.5rem;
-        }
-        
-        .invite-box {
-            background: rgba(78, 205, 196, 0.15);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 15px;
-        }
-        
-        .invite-link {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            word-break: break-all;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .copy-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .channels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .channel-item {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .channel-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .channel-item i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transform: translateX(120%);
-            transition: transform 0.5s ease;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .notification.success {
-            border-left: 4px solid #4CAF50;
-        }
-        
-        .notification.error {
-            border-left: 4px solid #F44336;
-        }
-        
-        .progress-bar {
-            height: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            margin-top: 15px;
-            overflow: hidden;
-        }
-        
-        .progress {
-            height: 100%;
-            background: var(--secondary);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        
-        .click-animation {
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0;
-            pointer-events: none;
-            animation: clickEffect 1s ease-out;
-        }
-        
-        @keyframes clickEffect {
-            0% {
-                transform: translateY(0) scale(0.5);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) scale(1.5);
-                opacity: 0;
-            }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideUp {
-            from { 
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to { 
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        @media (max-width: 500px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .card {
-                padding: 20px;
-            }
-            
-            header h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>سکه شما</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #2e004f; /* رنگ بنفش تیره */
+      font-family: 'Tahoma', sans-serif;
+      text-align: center;
+      color: white;
+    }
+
+    .coin-label {
+      font-size: 24px;
+      margin-top: 30px;
+    }
+
+    .coin-icon {
+      width: 40px;
+      margin-top: 10px;
+    }
+
+    .main-circle {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: #3a3a3a;
+      margin: 30px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .piggy-image {
+      width: 150px;
+    }
+
+    .bottom-bar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: #4a3d5a;
+      border-radius: 20px 20px 0 0;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .bottom-bar img {
+      width: 50px;
+      height: 50px;
+      transition: transform 0.2s;
+    }
+
+    .bottom-bar img:hover {
+      transform: scale(1.1);
+    }
+
+    .selected {
+      border: 2px solid white;
+      border-radius: 10px;
+      padding: 2px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>X-62</h1>
-            <p>سیستم پیشرفته کلیک و امتیازگیری</p>
-        </header>
-        
-        <div class="card">
-            <div class="stats">
-                <div class="stat-box">
-                    <div class="label">امتیاز شما</div>
-                    <div class="value" id="points">0</div>
-                </div>
-                <div class="stat-box">
-                    <div class="label">کلیک باقی‌مانده</div>
-                    <div class="value" id="remaining">10000</div>
-                </div>
-                <div class="stat-box">
-                    <div class="label">امروز</div>
-                    <div class="value" id="today">0</div>
-                </div>
-            </div>
-            
-            <div class="progress-bar">
-                <div class="progress" id="progress"></div>
-            </div>
-            
-            <button class="click-btn" id="clickButton">
-                <i class="fas fa-mouse-pointer"></i>
-                کلیک کن!
-            </button>
-        </div>
-        
-        <div class="card">
-            <div class="section">
-                <div class="section-title">
-                    <i class="fas fa-user-plus"></i>
-                    <h3>دعوت از دوستان</h3>
-                </div>
-                <p>با هر دعوت موفق 50 امتیاز رایگان دریافت کنید!</p>
-                
-                <div class="invite-box">
-                    <p>لینک دعوت اختصاصی شما:</p>
-                    <div class="invite-link">
-                        <span id="inviteLink"></span>
-                        <button class="copy-btn" onclick="copyInviteLink()">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                    <p>این لینک را برای دوستان خود ارسال کنید</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card">
-            <div class="section">
-                <div class="section-title">
-                    <i class="fas fa-users"></i>
-                    <h3>کانال‌های رسمی</h3>
-                </div>
-                <p>با عضویت در کانال‌ها 100 امتیاز رایگان دریافت کنید</p>
-                
-                <div class="channels-grid">
-                    <div class="channel-item" onclick="joinChannel('Mafioso_Xdrop')">
-                        <i class="fab fa-telegram"></i>
-                        <div>کانال اصلی</div>
-                    </div>
-                    <div class="channel-item" onclick="joinChannel('Mafioso_Support')">
-                        <i class="fas fa-headset"></i>
-                        <div>پشتیبانی</div>
-                    </div>
-                    <div class="channel-item" onclick="joinChannel('Mafioso_News')">
-                        <i class="fas fa-newspaper"></i>
-                        <div>اخبار</div>
-                    </div>
-                </div>
-                
-                <button class="click-btn" style="margin-top:20px;background:rgba(255,255,255,0.1);" onclick="checkChannels()">
-                    <i class="fas fa-sync-alt"></i>
-                    بررسی عضویت
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="notification" id="notification">
-        <i class="fas fa-check-circle"></i>
-        <span id="notificationText"></span>
-    </div>
 
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.MainButton.setText('بازگشت به ربات');
-        tg.MainButton.show();
-        
-        // تنظیمات
-        const BOT_TOKEN = '8094213193:AAHdgoiGwVaKbohbQ5h__8zEf4hl_zUmuZg';
-        const MAX_CLICKS = 10000;
-        const userId = tg.initDataUnsafe.user.id;
-        
-        // عناصر DOM
-        const pointsEl = document.getElementById('points');
-        const remainingEl = document.getElementById('remaining');
-        const todayEl = document.getElementById('today');
-        const progressEl = document.getElementById('progress');
-        const inviteLinkEl = document.getElementById('inviteLink');
-        const clickButton = document.getElementById('clickButton');
-        const notification = document.getElementById('notification');
-        const notificationText = document.getElementById('notificationText');
-        
-        // تنظیم لینک دعوت
-        inviteLinkEl.textContent = `https://t.me/${tg.initDataUnsafe.user.username}?start=ref_${userId}`;
-        
-        // وضعیت کاربر
-        let userState = {
-            points: 0,
-            dailyClicks: 0,
-            today: 0
-        };
-        
-        // بارگیری اولیه داده‌ها
-        function loadUserData() {
-            // در حالت واقعی اینجا از سرور داده دریافت می‌شود
-            userState = {
-                points: 1245,
-                dailyClicks: 3421,
-                today: 3421
-            };
-            
-            updateUI();
-        }
-        
-        // آپدیت رابط کاربری
-        function updateUI() {
-            pointsEl.textContent = userState.points.toLocaleString();
-            remainingEl.textContent = (MAX_CLICKS - userState.dailyClicks).toLocaleString();
-            todayEl.textContent = userState.today.toLocaleString();
-            
-            // آپدیت نوار پیشرفت
-            const progressPercent = (userState.dailyClicks / MAX_CLICKS) * 100;
-            progressEl.style.width = `${progressPercent}%`;
-            
-            // تغییر رنگ نوار پیشرفت
-            if (progressPercent > 80) {
-                progressEl.style.background = '#FF6B6B';
-            } else if (progressPercent > 50) {
-                progressEl.style.background = '#FFCA3A';
-            } else {
-                progressEl.style.background = '#4ECDC4';
-            }
-        }
-        
-        // ایجاد افکت کلیک
-        function createClickEffect(x, y) {
-            const effect = document.createElement('div');
-            effect.className = 'click-animation';
-            effect.innerHTML = '<i class="fas fa-plus"></i>';
-            effect.style.left = `${x}px`;
-            effect.style.top = `${y}px`;
-            document.body.appendChild(effect);
-            
-            setTimeout(() => {
-                effect.remove();
-            }, 1000);
-        }
-        
-        // ثبت کلیک
-        async function handleClick() {
-            // در حالت واقعی اینجا درخواست به سرور ارسال می‌شود
-            // شبیه‌سازی پاسخ سرور
-            const response = {
-                success: true,
-                points: userState.points + 1,
-                dailyClicks: userState.dailyClicks + 1,
-                today: userState.today + 1
-            };
-            
-            if (response.success) {
-                userState = {
-                    points: response.points,
-                    dailyClicks: response.dailyClicks,
-                    today: response.today
-                };
-                
-                updateUI();
-                showNotification('کلیک شما با موفقیت ثبت شد! +1 امتیاز', 'success');
-                
-                // ایجاد افکت
-                const rect = clickButton.getBoundingClientRect();
-                createClickEffect(rect.left + rect.width / 2, rect.top + rect.height / 2);
-            } else {
-                showNotification('محدودیت روزانه کلیک تکمیل شده است!', 'error');
-            }
-        }
-        
-        // کپی لینک دعوت
-        function copyInviteLink() {
-            navigator.clipboard.writeText(inviteLinkEl.textContent);
-            showNotification('لینک دعوت با موفقیت کپی شد!', 'success');
-        }
-        
-        // پیوستن به کانال
-        function joinChannel(channel) {
-            window.open(`https://t.me/${channel}`, '_blank');
-            showNotification(`در حال انتقال به کانال ${channel}...`, 'success');
-        }
-        
-        // بررسی عضویت در کانال‌ها
-        function checkChannels() {
-            // در حالت واقعی اینجا درخواست به سرور ارسال می‌شود
-            showNotification('عضویت شما در کانال‌ها بررسی شد! +100 امتیاز', 'success');
-            
-            // افزایش امتیاز
-            userState.points += 100;
-            updateUI();
-        }
-        
-        // نمایش نوتیفیکیشن
-        function showNotification(message, type) {
-            notificationText.textContent = message;
-            notification.className = `notification ${type} show`;
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-        
-        // رویدادهای کلیک
-        clickButton.addEventListener('click', handleClick);
-        
-        // بارگیری اولیه داده‌ها
-        loadUserData();
-    </script>
+  <div class="coin-label">سکه شما:</div>
+  <img class="coin-icon" src="coin-icon.png" alt="coin">
+
+  <div class="main-circle">
+    <img class="piggy-image" src="cool-piggy.png" alt="piggy bank">
+  </div>
+
+  <div class="bottom-bar">
+    <img class="selected" src="tab-coin.png" alt="tab 1">
+    <img src="mafia-piggy.png" alt="tab 2">
+    <img src="gem-bag.png" alt="tab 3">
+    <img src="trophy.png" alt="tab 4">
+  </div>
+
 </body>
-    </html>
+</html>
