@@ -5,25 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>صفحه عضویت و دعوت</title>
 
-  <!-- فونت Shabnam -->
-  <link href="https://cdn.fontcdn.ir/Font/Persian/Shabnam/Shabnam.css" rel="stylesheet">
+  <!-- فونت کاغذی Gandom آنلاین -->
+  <link href="https://cdn.fontcdn.ir/Font/Persian/Gandom/Gandom.css" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       padding: 0;
       direction: rtl;
-      font-family: 'Shabnam', sans-serif;
+      font-family: 'Gandom', sans-serif;
       background: url('bg-purple-pattern.png') no-repeat center/cover;
       display: flex;
       flex-direction: column;
       align-items: center;
       color: white;
-      padding-bottom: 100px; /* فضای فب پایین */
+      padding-bottom: 200px; /* فضای کافی برای فب فاصله‌دار */
+      box-sizing: border-box;
     }
 
     .pigs {
-      margin-top: 10px;
+      margin-top: 20px;
     }
 
     .pigs img {
@@ -32,12 +33,12 @@
 
     .wood-box {
       background: url('wood-frame.png') no-repeat center/contain;
-      background-size: contain;
-      width: 90%;
-      max-width: 400px;
-      padding: 10px;
+      background-size: 100% 100%;
+      width: 95%;
+      max-width: 450px;
+      padding: 20px;
       border-radius: 10px;
-      margin: 10px 0;
+      margin: 20px 0;
       box-sizing: border-box;
     }
 
@@ -52,14 +53,14 @@
     }
 
     .invite-text {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: bold;
       margin-left: 10px;
     }
 
     .outside-text {
-      margin: 10px 0;
-      font-size: 15px;
+      margin: 15px 0;
+      font-size: 16px;
       font-weight: bold;
     }
 
@@ -77,12 +78,12 @@
 
     .membership-title {
       font-weight: bold;
-      font-size: 15px;
+      font-size: 16px;
       margin-bottom: 3px;
     }
 
     .membership-desc {
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .button {
@@ -91,6 +92,7 @@
       position: relative;
       overflow: hidden;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-right: auto; /* دکمه سمت چپ کادر */
     }
 
     /* Hover Animation */
@@ -123,7 +125,7 @@
 
     .check-button {
       text-align: center;
-      margin: 10px 0 -20px 0;
+      margin: 25px 0;
     }
 
     .check-button img {
@@ -132,34 +134,28 @@
 
     .fab-menu {
       position: fixed;
-      bottom: 0;
+      bottom: 30px; /* فاصله از پایین صفحه */
       width: 100%;
-      background: url('fab-bg.png') no-repeat center/cover;
-      background-size: cover;
+      background: url('fab-bg.png') no-repeat center/contain;
+      background-size: 100% 100%; /* تصویر کامل بیفتد بدون برش */
       display: flex;
-      justify-content: space-around;
+      justify-content: center; /* دکمه‌ها وسط فب */
       align-items: center;
-      padding: 15px 0;
-      border-top: 1px solid rgba(255,255,255,0.2);
+      padding: 25px 0;
       z-index: 1000;
+      border-top: none;
     }
 
     .fab-menu img {
-      width: 50px;
+      width: 55px;
       cursor: pointer;
+      margin: 0 20px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .fab-menu img:hover {
       transform: scale(1.2);
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-    }
-
-    /* Ripple for fab icons */
-    .fab-menu img:active::after {
-      transform: scale(2);
-      opacity: 1;
-      transition: 0s;
     }
 
   </style>
