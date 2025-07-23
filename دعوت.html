@@ -19,7 +19,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
+      min-height: 100%;
       direction: rtl;
       font-family: 'VazirBold', sans-serif;
     }
@@ -31,13 +31,13 @@
       flex-direction: column;
       align-items: center;
       color: white;
-      padding-bottom: 350px;
       box-sizing: border-box;
+      padding-bottom: 350px;
     }
 
     .check-button {
       text-align: center;
-      margin: 75px 0 0 0; /* تغییر به 75px برای آوردن دکمه 50px پایین‌تر */
+      margin: 25px 0 0 0; /* دکمه بررسی عضویت 50px پایین‌تر */
     }
 
     .check-button img {
@@ -62,6 +62,7 @@
       padding: 20px;
       border-radius: 10px;
       box-sizing: border-box;
+      margin-bottom: 15px;
     }
 
     .invite-section {
@@ -145,38 +146,22 @@
       transition: 0s;
     }
 
-    /* فاصله بخش طلایی از اولین بخش آبی */
-    .membership-gold {
-      margin-top: 20px;
-      margin-bottom: 50px;
-    }
-
-    /* بخش های آبی با فاصله 10px از یکدیگر */
-    .membership-blue {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-
-    .membership-blue + .membership-blue {
-      margin-top: 10px;
-    }
-
     /* فب پایین */
     .fab-menu {
       position: fixed;
-      bottom: 50px;
+      bottom: 50px; /* فاصله از انتهای صفحه */
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
       max-width: 800px;
-      height: 140px;
+      height: 180px; /* بزرگ‌تر شد */
       background: url('fab-bg.png') no-repeat center center;
       background-size: 100% 100%;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       align-items: center;
       justify-items: center;
-      padding: 25px 0;
+      padding: 35px 0; /* بزرگ‌تر شد */
       z-index: 1000;
       border-top: none;
       box-sizing: border-box;
@@ -196,16 +181,8 @@
       box-sizing: border-box;
     }
 
-    .fab-item.first {
-      margin-right: 20px;
-    }
-
-    .fab-item.last {
-      margin-left: 20px;
-    }
-
     .fab-item img {
-      width: 80px;
+      width: 100px; /* بزرگ‌تر شد */
       max-width: 90%;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       outline: none;
@@ -218,7 +195,7 @@
 
     .fab-label {
       margin-top: -2px;
-      font-size: 16px;
+      font-size: 18px; /* بزرگ‌تر شد */
       font-weight: bold;
       text-align: center;
       max-width: 90%;
@@ -227,14 +204,14 @@
 
     @media (max-width: 600px) {
       .fab-menu {
-        height: 110px;
+        height: 140px;
         background-size: contain;
       }
       .fab-item img {
-        width: 60px;
+        width: 80px;
       }
       .fab-label {
-        font-size: 14px;
+        font-size: 12px;
       }
     }
   </style>
@@ -258,7 +235,7 @@
   <div class="outside-text">عضو کانال ها شو ۱۵۰ امتیاز بگیر!</div>
 
   <!-- کانال رسمی -->
-  <div class="wood-box membership-gold">
+  <div class="wood-box membership-gold" style="margin-bottom:50px;">
     <div class="membership-box">
       <div class="membership-info">
         <div class="membership-title">کانال رسمی MAFIOSO CION</div>
