@@ -16,18 +16,33 @@
   </style>
 
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
       direction: rtl;
       font-family: 'VazirBold', sans-serif;
-      background: url('bg-purple-pattern.png') no-repeat center/cover;
+    }
+
+    body {
+      background: url('bg-purple-pattern.png') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
       flex-direction: column;
       align-items: center;
       color: white;
-      padding-bottom: 250px; /* فضای کافی برای فب بزرگ‌تر */
+      padding-bottom: 350px;
       box-sizing: border-box;
+    }
+
+    .check-button {
+      text-align: center;
+      margin: 75px 0 0 0; /* تغییر به 75px برای آوردن دکمه 50px پایین‌تر */
+    }
+
+    .check-button img {
+      width: 100px;
+      max-width: 100%;
     }
 
     .pigs {
@@ -36,6 +51,7 @@
 
     .pigs img {
       width: 220px;
+      max-width: 100%;
     }
 
     .wood-box {
@@ -45,7 +61,6 @@
       max-width: 450px;
       padding: 20px;
       border-radius: 10px;
-      margin: 20px 0;
       box-sizing: border-box;
     }
 
@@ -57,6 +72,7 @@
 
     .invite-section img {
       width: 80px;
+      max-width: 100%;
     }
 
     .invite-text {
@@ -99,21 +115,15 @@
       position: relative;
       overflow: hidden;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      margin-right: auto; /* دکمه سمت چپ کادر */
-      outline: none; /* حذف مربع کلیک */
-    }
-
-    .button:focus {
+      margin-right: auto;
       outline: none;
     }
 
-    /* Hover Animation */
     .button:hover {
       transform: scale(1.1);
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
     }
 
-    /* Ripple Click Animation */
     .button::after {
       content: "";
       position: absolute;
@@ -135,57 +145,98 @@
       transition: 0s;
     }
 
-    .check-button {
-      text-align: center;
-      margin: 25px 0;
+    /* فاصله بخش طلایی از اولین بخش آبی */
+    .membership-gold {
+      margin-top: 20px;
+      margin-bottom: 50px;
     }
 
-    .check-button img {
-      width: 100px;
+    /* بخش های آبی با فاصله 10px از یکدیگر */
+    .membership-blue {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .membership-blue + .membership-blue {
+      margin-top: 10px;
     }
 
     /* فب پایین */
     .fab-menu {
       position: fixed;
-      bottom: 30px; /* فاصله از پایین صفحه */
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 100%;
-      background: url('fab-bg.png') no-repeat center/contain;
+      max-width: 800px;
+      height: 140px;
+      background: url('fab-bg.png') no-repeat center center;
       background-size: 100% 100%;
-      display: flex;
-      justify-content: center; /* دکمه‌ها وسط فب */
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       align-items: center;
-      padding: 35px 0; /* فب بزرگ‌تر شد */
+      justify-items: center;
+      padding: 25px 0;
       z-index: 1000;
       border-top: none;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
-    .fab-menu img {
-      width: 70px; /* دکمه های فب بزرگ تر شدند */
+    .fab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
       cursor: pointer;
-      margin: 0 25px;
+      width: fit-content;
+      max-width: 100%;
+      padding: 0 5px;
+      box-sizing: border-box;
+    }
+
+    .fab-item.first {
+      margin-right: 20px;
+    }
+
+    .fab-item.last {
+      margin-left: 20px;
+    }
+
+    .fab-item img {
+      width: 80px;
+      max-width: 90%;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       outline: none;
     }
 
-    .fab-menu img:focus {
-      outline: none;
-    }
-
-    .fab-menu img:hover {
+    .fab-item img:hover {
       transform: scale(1.2);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
     }
 
-    /* فاصله کمتر بین عضویت های آبی */
-    .membership-blue {
-      margin-top: -10px; /* نزدیک‌تر شدن به هم */
+    .fab-label {
+      margin-top: -2px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      max-width: 90%;
+      overflow-wrap: break-word;
     }
 
-    /* فاصله بیشتر از قسمت طلایی */
-    .membership-gold {
-      margin-bottom: 50px; /* 50px فاصله با قسمت های آبی */
+    @media (max-width: 600px) {
+      .fab-menu {
+        height: 110px;
+        background-size: contain;
+      }
+      .fab-item img {
+        width: 60px;
+      }
+      .fab-label {
+        font-size: 14px;
+      }
     }
-
   </style>
 </head>
 <body>
@@ -252,10 +303,22 @@
 
   <!-- فب پایین -->
   <div class="fab-menu">
-    <img src="icon1.png" alt="icon1" class="button" />
-    <img src="icon2.png" alt="icon2" class="button" />
-    <img src="icon3.png" alt="icon3" class="button" />
-    <img src="icon4.png" alt="icon4" class="button" />
+    <div class="fab-item first" onclick="alert('به زودی')">
+      <img src="icon1.png" alt="برترین ها" />
+      <div class="fab-label">برترین ها</div>
+    </div>
+    <div class="fab-item" onclick="window.location.href='https://mana932.github.io/Mafioso_Xdrop/دعوت.html'">
+      <img src="icon2.png" alt="ماموریت ها" />
+      <div class="fab-label">ماموریت ها</div>
+    </div>
+    <div class="fab-item" onclick="window.location.href='https://mana932.github.io/Mafioso_Xdrop/کلیکر.html'">
+      <img src="icon3.png" alt="خانه" />
+      <div class="fab-label">خانه</div>
+    </div>
+    <div class="fab-item last" onclick="alert('به زودی')">
+      <img src="icon4.png" alt="پشتیبانی" />
+      <div class="fab-label">پشتیبانی</div>
+    </div>
   </div>
 
 </body>
