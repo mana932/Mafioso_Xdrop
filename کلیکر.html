@@ -25,25 +25,17 @@
       background: url('bg-purple-pattern.png') no-repeat center center fixed;
       background-size: cover;
       overflow-x: hidden;
-      -webkit-tap-highlight-color: transparent; /* حذف هایلایت آبی روی موبایل */
+      -webkit-tap-highlight-color: transparent;
     }
 
     *:focus {
       outline: none;
     }
 
-    header {
-      background: url('header.png') no-repeat center center;
-      background-size: contain;
-      height: 80px;
+    header img {
+      display: block;
       width: 100%;
-    }
-
-    @media(min-width: 768px) {
-      header {
-        height: 100px;
-        background-size: contain;
-      }
+      height: auto;
     }
 
     .score-section {
@@ -74,7 +66,7 @@
     .plus-one {
       position: absolute;
       font-size: 24px;
-      color: #FFD700; /* طلایی برای وضوح */
+      color: #FFD700;
       opacity: 0;
       animation: popUp 0.8s forwards;
       pointer-events: none;
@@ -82,14 +74,8 @@
     }
 
     @keyframes popUp {
-      0% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-40px);
-      }
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-40px); }
     }
 
     .capacity {
@@ -99,7 +85,6 @@
       font-size: 16px;
     }
 
-    /* فب پایین (مطابق صفحه دعوت) */
     .fab-menu {
       position: fixed;
       bottom: 50px;
@@ -107,16 +92,17 @@
       transform: translateX(-50%);
       width: 100%;
       max-width: 800px;
-      height: 140px;
+      height: 180px;
       background: url('fab-bg.png') no-repeat center center;
       background-size: 100% 100%;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       align-items: center;
       justify-items: center;
-      padding: 25px 0;
+      padding: 35px 0;
       z-index: 1000;
       box-sizing: border-box;
+      overflow: hidden;
     }
 
     .fab-item {
@@ -132,18 +118,19 @@
     }
 
     .fab-item img {
-      width: 80px;
+      width: 100px;
       max-width: 90%;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .fab-item img:hover {
-      transform: scale(1.1);
+      transform: scale(1.2);
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
     }
 
     .fab-label {
-      margin-top: 5px;
-      font-size: 16px;
+      margin-top: -2px;
+      font-size: 18px;
       font-weight: bold;
       text-align: center;
       max-width: 90%;
@@ -153,24 +140,25 @@
 
     @media (max-width: 600px) {
       .fab-menu {
-        height: 110px;
+        height: 140px;
         background-size: contain;
       }
       .fab-item img {
-        width: 60px;
+        width: 80px;
       }
       .fab-label {
-        font-size: 14px;
+        font-size: 12px;
       }
     }
-
   </style>
 </head>
 
 <body>
 
-  <!-- هدر -->
-  <header></header>
+  <!-- Header -->
+  <header>
+    <img src="header.png" alt="header">
+  </header>
 
   <!-- امتیاز -->
   <div class="score-section">
@@ -190,7 +178,7 @@
     ظرفیت باقی مانده امروز: <span id="capacity">100</span>
   </div>
 
-  <!-- فب پایین (کپی استایل دعوت) -->
+  <!-- ✅ FAB پایین -->
   <div class="fab-menu">
     <div class="fab-item" onclick="alert('به زودی')">
       <img src="icon1.png" alt="برترین ها" />
@@ -210,7 +198,7 @@
     </div>
   </div>
 
-  <!-- JS -->
+  <!-- ✅ JS -->
   <script>
     let score = 0;
     let capacity = 100;
@@ -229,18 +217,14 @@
         todayScoreSpan.textContent = score;
         capacitySpan.textContent = capacity;
 
-        // چرخش هر دفعه 10 درجه، ریست بعد از 360
+        // ✅ چرخش بدون ریست شدن
         rotation += 10;
-        if (rotation >= 360) {
-          rotation = 0;
-        }
 
         clicker.style.transform = `scale(0.9) rotate(${rotation}deg)`;
         setTimeout(() => {
           clicker.style.transform = `scale(1) rotate(${rotation}deg)`;
         }, 200);
 
-        // افکت +1
         const plusOne = document.createElement('div');
         plusOne.classList.add('plus-one');
         plusOne.textContent = '+1';
@@ -258,4 +242,4 @@
   </script>
 
 </body>
-      </html>
+</html>
