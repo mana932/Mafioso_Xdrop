@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>برترین ها</title>
-  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet">
+
+  <!-- فونت محلی Vazir-Bold -->
   <style>
+    @font-face {
+      font-family: 'VazirBold';
+      src: url('./fonts/Vazir-Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -13,8 +21,8 @@
     }
 
     html, body {
+      font-family: 'VazirBold', sans-serif;
       direction: rtl;
-      font-family: 'Vazir', sans-serif;
       background: url('bg-purple-pattern.png') no-repeat center center fixed;
       background-size: cover;
       overflow-x: hidden;
@@ -22,12 +30,12 @@
 
     .image-section img {
       width: 100%;
-      object-fit: cover;
       display: block;
     }
 
     .image-section img:first-of-type {
-      max-height: 45vh; /* تصویر اول ارتفاع محدود */
+      max-height: 45vh;
+      object-fit: cover;
     }
 
     .fab-menu {
@@ -88,11 +96,9 @@
         height: 140px;
         background-size: contain;
       }
-
       .fab-item img {
         width: 80px;
       }
-
       .fab-label {
         font-size: 12px;
       }
@@ -101,10 +107,10 @@
 </head>
 <body>
 
-  <!-- تصاویر -->
+  <!-- نمایش تصاویر -->
   <div class="image-section">
-    <img src="pic1.png" alt="تصویر اول">
-    <img src="pic2.png" alt="تصویر دوم">
+    <img src="pic1.png" alt="pic1" />
+    <img src="pic2.png" alt="pic2" />
   </div>
 
   <!-- فب پایین -->
