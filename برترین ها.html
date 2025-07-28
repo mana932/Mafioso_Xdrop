@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>برترین ها</title>
+  <link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      direction: rtl;
+      font-family: 'Vazir', sans-serif;
+      background: url('bg-purple-pattern.png') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+
+    .image-section img {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-section img:first-of-type {
+      max-height: 45vh; /* تصویر اول ارتفاع محدود */
+    }
+
+    .fab-menu {
+      position: fixed;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 800px;
+      height: 180px;
+      background: url('fab-bg.png') no-repeat center center;
+      background-size: 100% 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      justify-items: center;
+      padding: 35px 0;
+      z-index: 1000;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .fab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      cursor: pointer;
+      width: fit-content;
+      max-width: 100%;
+      padding: 0 5px;
+    }
+
+    .fab-item img {
+      width: 100px;
+      max-width: 90%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .fab-item img:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    }
+
+    .fab-label {
+      margin-top: -2px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      max-width: 90%;
+      overflow-wrap: break-word;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .fab-menu {
+        height: 140px;
+        background-size: contain;
+      }
+
+      .fab-item img {
+        width: 80px;
+      }
+
+      .fab-label {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- تصاویر -->
+  <div class="image-section">
+    <img src="pic1.png" alt="تصویر اول">
+    <img src="pic2.png" alt="تصویر دوم">
+  </div>
+
+  <!-- فب پایین -->
+  <div class="fab-menu">
+    <div class="fab-item" onclick="window.location.href='https://mana932.github.io/Mafioso_Xdrop/برترین ها.html'">
+      <img src="icon1.png" alt="برترین ها" />
+      <div class="fab-label">برترین ها</div>
+    </div>
+    <div class="fab-item" onclick="window.location.href='https://mana932.github.io/Mafioso_Xdrop/دعوت.html'">
+      <img src="icon2.png" alt="ماموریت ها" />
+      <div class="fab-label">ماموریت ها</div>
+    </div>
+    <div class="fab-item" onclick="window.location.href='https://mana932.github.io/Mafioso_Xdrop/کلیکر.html'">
+      <img src="icon3.png" alt="خانه" />
+      <div class="fab-label">خانه</div>
+    </div>
+    <div class="fab-item" onclick="alert('به زودی')">
+      <img src="icon4.png" alt="پشتیبانی" />
+      <div class="fab-label">پشتیبانی</div>
+    </div>
+  </div>
+
+</body>
+</html>
